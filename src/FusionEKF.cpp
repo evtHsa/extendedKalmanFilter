@@ -33,11 +33,14 @@ FusionEKF::FusionEKF() {
               0, 0.0009, 0,
               0, 0, 0.09;
 
-  assert("port bomb" == 0);
   /**
    * TODO: Finish initializing the FusionEKF.
    * TODO: Set the process and measurement noises
    */
+  // init H_laser (from H Matrix Quiz, Lesson 25, Unit 11
+  // selects just px, py from measurement
+    H_laser_ << 1, 0, 0, 0,
+                       0, 1, 0, 0;
 
 
 }
