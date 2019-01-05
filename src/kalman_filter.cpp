@@ -25,9 +25,12 @@ void KalmanFilter::Init(VectorXd &x_in, MatrixXd &P_in, MatrixXd &F_in,
 
 void KalmanFilter::Predict() {
   /**
-   * TODO: predict the state
+   * TODO: predict the state<done>
    */
-  assert("port_bomb" == 0);
+    // Lesson 25, Unit 14: Laser Measurments, Part
+  x_ = F_ * x_;
+  MatrixXd Ft = F_.transpose();
+  P_ = F_ * P_ * Ft + Q_;
 }
 
 void KalmanFilter::Update(const VectorXd &z) {
