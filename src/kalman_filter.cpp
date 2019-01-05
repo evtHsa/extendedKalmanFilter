@@ -1,4 +1,5 @@
 #include "kalman_filter.h"
+#include "assert.h"
 
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
@@ -26,16 +27,19 @@ void KalmanFilter::Predict() {
   /**
    * TODO: predict the state
    */
+  assert("port bomb" == 0);
 }
 
 void KalmanFilter::Update(const VectorXd &z) {
   /**
    * TODO: update the state by using Kalman Filter equations
    */
+  assert("port bomb" == 0);
 }
 
 void KalmanFilter::UpdateEKF(const VectorXd &z) {
   /**
    * TODO: update the state by using Extended Kalman Filter equations
    */
+  assert("port bomb" == 0);
 }
