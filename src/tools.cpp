@@ -16,11 +16,11 @@ VectorXd Tools::CalculateRMSE(const vector<VectorXd> &estimations,
   /**
    * TODO: Calculate the RMSE here.
    */
-  assert("port bomb" == 0);
+  assert("port_bomb" == 0);
 }
 
 MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
-  assert("port bomb" == 0);
+  assert("port_bomb" == 0);
   /**
    * TODO:
    * Calculate a Jacobian here.

@@ -55,7 +55,7 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
    * Initialization
    */
   if (!is_initialized_) {
-   assert("port bomb" == 0);
+   assert("port_bomb" == 0);
     /**
      * TODO: Initialize the state ekf_.x_ with the first measurement.
      * TODO: Create the covariance matrix.
@@ -70,11 +70,11 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
       // TODO: Convert radar from polar to cartesian coordinates 
       //         and initialize state.
-      assert("port bomb" == 0);
+      assert("port_bomb" == 0);
     }
     else if (measurement_pack.sensor_type_ == MeasurementPackage::LASER) {
       // TODO: Initialize state.
-      assert("port bomb" == 0);
+      assert("port_bomb" == 0);
     }
 
     // done initializing, no need to predict or update
@@ -107,11 +107,11 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
 
   if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
     // TODO: Radar updates
-    assert("port bomb" == 0);
+    assert("port_bomb" == 0);
 
   } else {
     // TODO: Laser updates
-    assert("port bomb" == 0);
+    assert("port_bomb" == 0);
 
   }
 
