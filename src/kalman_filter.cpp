@@ -35,9 +35,24 @@ void KalmanFilter::Predict() {
 
 void KalmanFilter::Update(const VectorXd &z) {
   /**
-   * TODO: update the state by using Kalman Filter equations
+   * TODO: update the state by using Kalman Filter equations<done>
    */
-  assert("port_bomb" == 0);
+
+  // ref: lesson 25, unit 7, kalman filter equations in c++, part 1
+  // update state
+  VectorXd z_prev = H_ * x_;
+  VectorXd y = z - z_prev; // FIXME: get rid of this vbl
+  MatrixXd Ht = H_.transpose();
+  MatrixXd S = H_ * P_ * Ht + R_;
+  MatrixXd Si = S.inverse();
+  MatrixXd PHt = P_ * Ht;
+  MatrixXd K = PHt * Si;
+
+  // update estimate
+   x_ = x_ + (K * y);
+  long x_size = x_.size();
+  MatrixXd I = MatrixXd::Identity(x_size, x_size);
+  P_ = (I - K * H_) * P_;
 }
 
 void KalmanFilter::UpdateEKF(const VectorXd &z) {
@@ -54,9 +69,9 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   } else {
     rho_dot = (x_(0)*x_(2) + x_(1)*x_(3))/rho;
   }
-  VectorXd z_pred(3);
-  z_pred << rho, phi, rho_dot; // so we can use vector subtraction
-  VectorXd y = z - z_pred;
+  VectorXd z_prev(3);
+  z_prev << rho, phi, rho_dot; // so we can use vector subtraction
+  VectorXd y = z - z_prev;
   MatrixXd Ht = H_.transpose();
   MatrixXd S = H_ * P_ * Ht + R_;
   MatrixXd Si = S.inverse();

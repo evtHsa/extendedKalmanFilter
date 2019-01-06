@@ -165,12 +165,14 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     Tools tools;
     Hj_ = tools.CalculateJacobian(ekf_.x_);
     ekf_.H_ = Hj_; // measurement matrix
-    ekf_.R_ = R_radar_; // covariance matrix // FIXME: isn't this already initialied and constant
+    ekf_.R_ = R_radar_; // covariance matrix
+    // ^^^^^^^ FIXME: isn't this already initialized and constant
     ekf_.UpdateEKF(measurement_pack.raw_measurements_);
   } else {
     // TODO: Laser updates
-    assert("port_bomb" == 0);
-
+    ekf_.H_ = H_laser_;
+    ekf_.R_ = R_laser_;
+    ekf_.Update(measurement_pack.raw_measurements_);
   }
 
   // print the output
