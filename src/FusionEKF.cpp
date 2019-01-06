@@ -156,10 +156,17 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
    * - Update the state and covariance matrices.
    */
 
+  assert((measurement_pack.sensor_type_ == MeasurementPackage::RADAR) ||
+         (measurement_pack.sensor_type_ == MeasurementPackage::LASER));
+  
   if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
-    // TODO: Radar updates
-    assert("port_bomb" == 0);
-
+    // TODO: Radar updates<done>
+    // ref: Lesson 25:19(adapted to ekf obj)
+    Tools tools;
+    Hj_ = tools.CalculateJacobian(ekf_.x_);
+    ekf_.H_ = Hj_; // measurement matrix
+    ekf_.R_ = R_radar_; // covariance matrix // FIXME: isn't this already initialied and constant
+    ekf_.UpdateEKF(measurement_pack.raw_measurements_);
   } else {
     // TODO: Laser updates
     assert("port_bomb" == 0);

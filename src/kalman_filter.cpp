@@ -42,7 +42,31 @@ void KalmanFilter::Update(const VectorXd &z) {
 
 void KalmanFilter::UpdateEKF(const VectorXd &z) {
   /**
-   * TODO: update the state by using Extended Kalman Filter equations
+   * TODO: update the state by using Extended Kalman Filter equations<done>
    */
-  assert("port_bomb" == 0);
+  // ref: Lesson 25, Unit 14, Laser Measurements, Part 4
+  // cartesian -> polar
+  float rho = sqrt(x_(0) * x_(0) + x_(1) * x_(1));
+  float phi = atan2(x_(1), x_(0));
+  float rho_dot;
+  if (fabs(rho) < 0.0001) { // worry about underflow
+    rho_dot = 0;
+  } else {
+    rho_dot = (x_(0)*x_(2) + x_(1)*x_(3))/rho;
+  }
+  VectorXd z_pred(3);
+  z_pred << rho, phi, rho_dot; // so we can use vector subtraction
+  VectorXd y = z - z_pred;
+  MatrixXd Ht = H_.transpose();
+  MatrixXd S = H_ * P_ * Ht + R_;
+  MatrixXd Si = S.inverse();
+  MatrixXd PHt = P_ * Ht;
+  MatrixXd K = PHt * Si;
+
+  // updated estimate
+  // ref: lesson 25, unit 7, kalman filter equations in c++, part 1
+  x_ = x_ + (K * y);
+  long x_size = x_.size();
+  MatrixXd I = MatrixXd::Identity(x_size, x_size);
+  P_ = (I - K * H_) * P_;
 }
