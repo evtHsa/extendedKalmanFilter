@@ -33,8 +33,6 @@ FusionEKF::FusionEKF() {
               0, 0.0009, 0,
               0, 0, 0.09;
 
-  // FIXME: Hj_??
-  
   // state covariance matrix P
   ekf_.P_ = MatrixXd(4, 4);
   ekf_.P_ << 1, 0, 0, 0,
@@ -50,15 +48,13 @@ FusionEKF::FusionEKF() {
              0, 0, 1, 0,
              0, 0, 0, 1;
   /**
-   * TODO: Finish initializing the FusionEKF.
-   * TODO: Set the process and measurement noises
+   * TODO: Finish initializing the FusionEKF. <done>
+   * TODO: Set the process and measurement noises<done>
    */
   // init H_laser (from H Matrix Quiz, Lesson 25, Unit 11
   // selects just px, py from measurement
     H_laser_ << 1, 0, 0, 0,
                        0, 1, 0, 0;
-
-
 }
 
 /**
@@ -113,7 +109,7 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
    */
 
   /**
-   * TODO: Update the state transition matrix F according to the new elapsed time.
+   * TODO: Update the state transition matrix F according to the new elapsed time.<done>
    * Time is measured in seconds.
    * TODO: Update the process noise covariance matrix.<done>
    * Use noise_ax = 9 and noise_ay = 9 for your Q matrix.
@@ -151,7 +147,7 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
    */
 
   /**
-   * TODO:
+   * TODO:<done>
    * - Use the sensor type to perform the update step.
    * - Update the state and covariance matrices.
    */
@@ -169,7 +165,7 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     // ^^^^^^^ FIXME: isn't this already initialized and constant
     ekf_.UpdateEKF(measurement_pack.raw_measurements_);
   } else {
-    // TODO: Laser updates
+    // TODO: Laser updates<done>
     ekf_.H_ = H_laser_;
     ekf_.R_ = R_laser_;
     ekf_.Update(measurement_pack.raw_measurements_);
