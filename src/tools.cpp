@@ -22,7 +22,6 @@ VectorXd Tools::CalculateRMSE(const vector<VectorXd> &estimations,
   VectorXd rmse(4);
   rmse << 0, 0, 0, 0;
 
-  //<hit>assert("port_bomb" == 0);
   // check the validity of the following inputs:
   //  * the estimation vector size should not be zero
   //  * the estimation vector size should equal ground truth vector size
@@ -49,7 +48,6 @@ VectorXd Tools::CalculateRMSE(const vector<VectorXd> &estimations,
   rmse = rmse.array().sqrt();
 
   //return the result
- std::cout << "RMSE\n:" << rmse << std::endl;
  return rmse;
 }
 
