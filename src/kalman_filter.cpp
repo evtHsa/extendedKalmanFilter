@@ -41,7 +41,7 @@ void KalmanFilter::Update(const VectorXd &z) {
   // ref: lesson 25, unit 7, kalman filter equations in c++, part 1
   // update state
   VectorXd z_prev = H_ * x_;
-  VectorXd y = z - z_prev; // FIXME: get rid of this vbl
+  VectorXd y = z - z_prev;
   MatrixXd Ht = H_.transpose();
   MatrixXd S = H_ * P_ * Ht + R_;
   MatrixXd Si = S.inverse();
