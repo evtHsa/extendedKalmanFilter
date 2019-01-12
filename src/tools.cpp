@@ -49,7 +49,8 @@ VectorXd Tools::CalculateRMSE(const vector<VectorXd> &estimations,
   rmse = rmse.array().sqrt();
 
   //return the result
-  return rmse;
+ std::cout << "RMSE\n:" << rmse << std::endl;
+ return rmse;
 }
 
 MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
