@@ -30,5 +30,11 @@ Where possible duplicate code was factored out to reduce the risk of neglecting 
 
 Common subexpressions were moved to temporary variables. The utiliity of this was questionable in light of modern compiler technology.
 
+### Running the Project
+
+ - run cmake and make per the project instructions
+ - start the simulator(requires, per the instructions, installation of the term2 simulator)
+ - start build/ExtendedKF
+
 ### Closing Note
 I struggled for a while to understand why my RMSE values were not within spec until I revisited the "Tips and Tricks" and implemented the suggestion to normalize the angles resultant from atan2. Thank you!!
