@@ -34,47 +34,7 @@ void KalmanFilter::Predict() {
   P_ = F_ * P_ * Ft + Q_;
 }
 
-void KalmanFilter::Update(const VectorXd &z) {
-  /**
-   * TODO: update the state by using Kalman Filter equations<done>
-   */
-
-  // ref: lesson 25, unit 7, kalman filter equations in c++, part 1
-  // update state
-  //assert("FIXME:factor out common code" == NULL);
-  VectorXd y = z - H_ * x_;
-  MatrixXd Ht = H_.transpose();
-  MatrixXd S = H_ * P_ * Ht + R_;
-  MatrixXd Si = S.inverse();
-  MatrixXd PHt = P_ * Ht;
-  MatrixXd K = PHt * Si;
-
-  // update estimate
-   x_ = x_ + (K * y);
-  long x_size = x_.size();
-  MatrixXd I = MatrixXd::Identity(x_size, x_size);
-  P_ = (I - K * H_) * P_;
-}
-
-void KalmanFilter::UpdateEKF(const VectorXd &z) {
-  /**
-   * TODO: update the state by using Extended Kalman Filter equations<done>
-   */
-  // ref: Lesson 25, Unit 14, Laser Measurements, Part 4
-  // cartesian -> polar
-  //assert("FIXME:be consistent rho .vs. ro" == NULL)
-  float rho = sqrt(x_(0) * x_(0) + x_(1) * x_(1));
-  float phi = atan2(x_(1), x_(0));
-  float rho_dot;
-  if (fabs(rho) < epsilon) { // worry about underflow
-    rho_dot = 0;
-  } else {
-    rho_dot = (x_(0)*x_(2) + x_(1)*x_(3))/rho;
-  }
-  VectorXd z_prev(3);
-  // FIXME: more common code
-  z_prev << rho, phi, rho_dot; // so we can use vector subtraction
-  VectorXd y = z - z_prev;
+void KalmanFilter::commonUpdate(const VectorXd &y) {
   MatrixXd Ht = H_.transpose();
   MatrixXd S = H_ * P_ * Ht + R_;
   MatrixXd Si = S.inverse();
@@ -87,4 +47,36 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   long x_size = x_.size();
   MatrixXd I = MatrixXd::Identity(x_size, x_size);
   P_ = (I - K * H_) * P_;
+}
+
+void KalmanFilter::Update(const VectorXd &z) {
+  /**
+   * TODO: update the state by using Kalman Filter equations<done>
+   */
+
+  // ref: lesson 25, unit 7, kalman filter equations in c++, part 1
+  // update state
+  VectorXd y = z - H_ * x_;
+  commonUpdate(y);
+}
+
+void KalmanFilter::UpdateEKF(const VectorXd &z) {
+  /**
+   * TODO: update the state by using Extended Kalman Filter equations<done>
+   */
+  // ref: Lesson 25, Unit 14, Laser Measurements, Part 4
+  // see also "Definition of Radar Variables"
+
+  float rho = sqrt(x_(0) * x_(0) + x_(1) * x_(1));  // verified
+  float phi = atan2(x_(1), x_(0)); // verified
+  float rho_dot; // verified
+  if (fabs(rho) < epsilon) { // worry about underflow // verified
+    rho_dot = 0; // verified
+  } else {
+    rho_dot = (x_(0) * x_(2) + x_(1) * x_(3)) / rho; // verified
+  }
+  VectorXd z_prev(3);
+  z_prev << rho, phi, rho_dot; // so we can use vector subtraction
+  VectorXd y = z - z_prev;
+  commonUpdate(y);  
 }
