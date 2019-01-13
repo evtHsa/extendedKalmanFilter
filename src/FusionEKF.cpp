@@ -162,8 +162,7 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     // TODO: Radar updates<done>
     // ref: Lesson 25:19(adapted to ekf obj)
     Tools tools;
-    Hj_ = tools.CalculateJacobian(ekf_.x_);
-    ekf_.H_ = Hj_; // measurement matrix
+    ekf_.H_ = tools.CalculateJacobian(ekf_.x_);
     ekf_.R_ = R_radar_; // covariance matrix 
     ekf_.UpdateEKF(measurement_pack.raw_measurements_);
   } else {
