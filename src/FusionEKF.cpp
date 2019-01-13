@@ -89,12 +89,12 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     }
     else if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
       // TODO: Convert radar from polar to cartesian coords & init state <done>
-        float ro       = measurement_pack.raw_measurements_(0);   // distance
+        float rho       = measurement_pack.raw_measurements_(0);   // distance
         float phi      = measurement_pack.raw_measurements_(1);  // heading
-        float ro_dot = measurement_pack.raw_measurements_(2);  // radial speed
+        float rho_dot = measurement_pack.raw_measurements_(2);  // radial speed
       
-        ekf_.x_ << ro * cos(phi) /*x*/ , ro * sin(phi)/*y*/,
-            ro_dot * cos(phi)/*vx*/, ro_dot * sin(phi)/*vy*/;
+        ekf_.x_ << rho * cos(phi) /*x*/ , rho * sin(phi)/*y*/,
+            rho_dot * cos(phi)/*vx*/, rho_dot * sin(phi)/*vy*/;
     }
 
     previous_timestamp_ = measurement_pack.timestamp_;
