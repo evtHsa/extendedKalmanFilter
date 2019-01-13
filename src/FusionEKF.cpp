@@ -115,7 +115,8 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
    * Use noise_ax = 9 and noise_ay = 9 for your Q matrix.
    */
   
-  float dt = (measurement_pack.timestamp_ - previous_timestamp_) / 1000000.0;
+  float dt = (measurement_pack.timestamp_ - previous_timestamp_)
+      / 1000000.0; // usec -> sec
   // dt units are seconds
   previous_timestamp_ = measurement_pack.timestamp_; // current is the new prev
 
