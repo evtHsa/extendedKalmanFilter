@@ -40,8 +40,9 @@ void KalmanFilter::Update(const VectorXd &z) {
 
   // ref: lesson 25, unit 7, kalman filter equations in c++, part 1
   // update state
+  //assert("FIXME:factor out common code" == NULL);
   VectorXd z_prev = H_ * x_;
-  VectorXd y = z - z_prev;
+  VectorXd y = z - z_prev; // FIXME: z_prev no longer deserves to exist
   MatrixXd Ht = H_.transpose();
   MatrixXd S = H_ * P_ * Ht + R_;
   MatrixXd Si = S.inverse();
@@ -61,6 +62,7 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
    */
   // ref: Lesson 25, Unit 14, Laser Measurements, Part 4
   // cartesian -> polar
+  //assert("FIXME:be consistent rho .vs. ro" == NULL)
   float rho = sqrt(x_(0) * x_(0) + x_(1) * x_(1));
   float phi = atan2(x_(1), x_(0));
   float rho_dot;
@@ -70,6 +72,7 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
     rho_dot = (x_(0)*x_(2) + x_(1)*x_(3))/rho;
   }
   VectorXd z_prev(3);
+  // FIXME: more common code
   z_prev << rho, phi, rho_dot; // so we can use vector subtraction
   VectorXd y = z - z_prev;
   MatrixXd Ht = H_.transpose();
