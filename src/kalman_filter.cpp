@@ -67,13 +67,13 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   // ref: Lesson 25, Unit 14, Laser Measurements, Part 4
   // see also "Definition of Radar Variables"
 
-  float rho = sqrt(x_(0) * x_(0) + x_(1) * x_(1));  // verified
-  float phi = atan2(x_(1), x_(0)); // verified
-  float rho_dot; // verified
-  if (fabs(rho) < epsilon) { // worry about underflow // verified
-    rho_dot = 0; // verified
+  float rho = sqrt(x_(0) * x_(0) + x_(1) * x_(1)); 
+  float phi = atan2(x_(1), x_(0));
+  float rho_dot;
+  if (fabs(rho) < epsilon) { // worry about underflow
+    rho_dot = 0;
   } else {
-    rho_dot = (x_(0) * x_(2) + x_(1) * x_(3)) / rho; // verified
+    rho_dot = (x_(0) * x_(2) + x_(1) * x_(3)) / rho;
   }
   VectorXd z_prev(3);
   z_prev << rho, phi, rho_dot; // so we can use vector subtraction
