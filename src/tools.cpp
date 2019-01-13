@@ -71,6 +71,7 @@ MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
 
   if (fabs(c1) < epsilon || fabs(c2) < epsilon || fabs(c3) < epsilon) {
       std::cout << "Tools::CalculateJacobian() - ERROR - div by 0" << std::endl;
+      assert(0 == 1); did we miss the memo?
       return Hj;
   }
   
