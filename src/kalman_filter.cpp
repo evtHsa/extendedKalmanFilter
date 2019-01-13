@@ -15,12 +15,12 @@ KalmanFilter::~KalmanFilter() {}
 
 void KalmanFilter::Init(VectorXd &x_in, MatrixXd &P_in, MatrixXd &F_in,
                         MatrixXd &H_in, MatrixXd &R_in, MatrixXd &Q_in) {
-  x_ = x_in;
-  P_ = P_in;
-  F_ = F_in;
-  H_ = H_in;
-  R_ = R_in;
-  Q_ = Q_in;
+    x_ = x_in; // state(x, y, vx, vy)
+    P_ = P_in; // obj covariance matrix
+    F_ = F_in; // state transition matrix
+    H_ = H_in; // measurement matrix
+    R_ = R_in; // measurement covariance matrix
+    Q_ = Q_in; // process covariance matrix
 }
 
 void KalmanFilter::Predict() {
