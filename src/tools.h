@@ -4,6 +4,8 @@
 #include <vector>
 #include "Eigen/Dense"
 
+#define epsilon 0.0001 // for underflow protection
+
 class Tools {
  public:
   /**

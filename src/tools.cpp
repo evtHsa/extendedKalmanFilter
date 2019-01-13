@@ -69,7 +69,7 @@ MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
   float c2 = sqrt(c1);
   float c3 = (c1 * c2);
 
-  if (fabs(c1) < 0.001 || fabs(c2) < 0.001 || fabs(c3) < 0.001) {
+  if (fabs(c1) < epsilon || fabs(c2) < epsilon || fabs(c3) < epsilon) {
       std::cout << "Tools::CalculateJacobian() - ERROR - div by 0" << std::endl;
       return Hj;
   }
