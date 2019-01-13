@@ -78,5 +78,6 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   VectorXd z_prev(3);
   z_prev << rho, phi, rho_dot; // so we can use vector subtraction
   VectorXd y = z - z_prev;
+  y(1) = normalize_angle(y(1));
   commonUpdate(y);  
 }

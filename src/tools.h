@@ -3,8 +3,23 @@
 
 #include <vector>
 #include "Eigen/Dense"
+#include <iostream>
 
 #define epsilon 0.0001 // for underflow protection
+
+inline float
+normalize_angle(float a) { // per "tips and tricks" in assignment
+    float tmp = a;
+    if (a  > M_PI)
+        while (a > M_PI)
+            a -= 2 * M_PI;
+    if (a  < M_PI)
+        while (a > M_PI)
+            a += 2 * M_PI;
+    if (a != tmp)
+        std::cout << "normalize_angle: " << tmp << " => " << a << std::endl;
+    return a;
+}
 
 class Tools {
  public:
