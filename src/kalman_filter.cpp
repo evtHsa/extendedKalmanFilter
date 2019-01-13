@@ -1,5 +1,6 @@
 #include "kalman_filter.h"
 #include "assert.h"
+#include "tools.h" // just for epsilon definition
 
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
