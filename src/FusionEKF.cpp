@@ -80,6 +80,9 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     // first measurement
     ekf_.x_ = VectorXd(4);
 
+    assert((measurement_pack.sensor_type_ == MeasurementPackage::LASER) ||
+           (measurement_pack.sensor_type_ == MeasurementPackage::RADAR));
+        
     if (measurement_pack.sensor_type_ == MeasurementPackage::LASER) {
       ekf_.x_(0) = measurement_pack.raw_measurements_(0);
       ekf_.x_(1) = measurement_pack.raw_measurements_(1);
